@@ -1,0 +1,1840 @@
+Last login: Sat Feb  1 17:38:47 on ttys017
+(base) inayarizvi@MacBookPro ~ % psql -U postgres
+psql (15.10 (Homebrew))
+Type "help" for help.
+
+postgres=# \c db02
+You are now connected to database "db02" as user "postgres".
+db02=# \d
+               List of relations
+ Schema |      Name       |   Type   |  Owner   
+--------+-----------------+----------+----------
+ public | attendees       | table    | postgres
+ public | department      | table    | postgres
+ public | employee        | table    | postgres
+ public | employee_id_seq | sequence | postgres
+ public | meeting         | table    | postgres
+ public | meeting_id_seq  | sequence | postgres
+ public | phone           | table    | postgres
+ public | phone_id_seq    | sequence | postgres
+ public | phonetype       | table    | postgres
+ public | room            | table    | postgres
+ public | room_id_seq     | sequence | postgres
+(11 rows)
+
+db02=# SELECT * FROM information_schema.columns WHERE table_name = 'employee';
+ table_catalog | table_schema | table_name | column_name  | ordinal_position |            column_default            | is_nullable |     data_type     | character_maximum_length | character_octet_length | numeric_precision | numeric_precision_radix | numeric_scale | datetime_precision | interval_type | interval_precision | character_set_catalog | character_set_schema | character_set_name | collation_catalog | collation_schema | collation_name | domain_catalog | domain_schema | domain_name | udt_catalog | udt_schema | udt_name | scope_catalog | scope_schema | scope_name | maximum_cardinality | dtd_identifier | is_self_referencing | is_identity | identity_generation | identity_start | identity_increment | identity_maximum | identity_minimum | identity_cycle | is_generated | generation_expression | is_updatable 
+---------------+--------------+------------+--------------+------------------+--------------------------------------+-------------+-------------------+--------------------------+------------------------+-------------------+-------------------------+---------------+--------------------+---------------+--------------------+-----------------------+----------------------+--------------------+-------------------+------------------+----------------+----------------+---------------+-------------+-------------+------------+----------+---------------+--------------+------------+---------------------+----------------+---------------------+-------------+---------------------+----------------+--------------------+------------------+------------------+----------------+--------------+-----------------------+--------------
+ db02          | public       | employee   | id           |                1 | nextval('employee_id_seq'::regclass) | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 1              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | employeenum  |                2 |                                      | NO          | character varying |                       10 |                     40 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 2              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | name         |                3 |                                      | NO          | character varying |                       40 |                    160 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 3              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | email        |                4 |                                      | NO          | character varying |                       30 |                    120 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 4              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | departmentid |                5 |                                      | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 5              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | salary       |                6 |                                      | NO          | numeric           |                          |                        |                   |                      10 |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | numeric  |               |              |            |                     | 6              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+(6 rows)
+:
+ table_catalog | table_schema | table_name | column_name  | ordinal_position |            column_default            | is_nullable |     data_type     | character_maximum_length | character_octet_length | numeric_precision | numeric_precision_radix | numeric_scale | datetime_precision | interval_type | interval_precision | character_set_catalog | character_set_schema | character_set_name | collation_catalog | collation_schema | collation_name | domain_catalog | domain_schema | domain_name | udt_catalog | udt_schema | udt_name | scope_catalog | scope_schema | scope_name | maximum_cardinality | dtd_identifier | is_self_referencing | is_identity | identity_generation | identity_start | identity_increment | identity_maximum | identity_minimum | identity_cycle | is_generated | generation_expression | is_updatable 
+---------------+--------------+------------+--------------+------------------+--------------------------------------+-------------+-------------------+--------------------------+------------------------+-------------------+-------------------------+---------------+--------------------+---------------+--------------------+-----------------------+----------------------+--------------------+-------------------+------------------+----------------+----------------+---------------+-------------+-------------+------------+----------+---------------+--------------+------------+---------------------+----------------+---------------------+-------------+---------------------+----------------+--------------------+------------------+------------------+----------------+--------------+-----------------------+--------------
+ db02          | public       | employee   | id           |                1 | nextval('employee_id_seq'::regclass) | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 1              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | employeenum  |                2 |                                      | NO          | character varying |                       10 |                     40 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 2              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | name         |                3 |                                      | NO          | character varying |                       40 |                    160 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 3              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | email        |                4 |                                      | NO          | character varying |                       30 |                    120 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 4              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | departmentid |                5 |                                      | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 5              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | salary       |                6 |                                      | NO          | numeric           |                          |                        |                   |                      10 |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | numeric  |               |              |            |                     | 6              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+(6 rows)
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ table_catalog | table_schema | table_name | column_name  | ordinal_position |            column_default            | is_nullable |     data_type     | character_maximum_length | character_octet_length | numeric_precision | numeric_precision_radix | numeric_scale | datetime_precision | interval_type | interval_precision | character_set_catalog | character_set_schema | character_set_name | collation_catalog | collation_schema | collation_name | domain_catalog | domain_schema | domain_name | udt_catalog | udt_schema | udt_name | scope_catalog | scope_schema | scope_name | maximum_cardinality | dtd_identifier | is_self_referencing | is_identity | identity_generation | identity_start | identity_increment | identity_maximum | identity_minimum | identity_cycle | is_generated | generation_expression | is_updatable 
+---------------+--------------+------------+--------------+------------------+--------------------------------------+-------------+-------------------+--------------------------+------------------------+-------------------+-------------------------+---------------+--------------------+---------------+--------------------+-----------------------+----------------------+--------------------+-------------------+------------------+----------------+----------------+---------------+-------------+-------------+------------+----------+---------------+--------------+------------+---------------------+----------------+---------------------+-------------+---------------------+----------------+--------------------+------------------+------------------+----------------+--------------+-----------------------+--------------
+ db02          | public       | employee   | id           |                1 | nextval('employee_id_seq'::regclass) | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 1              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | employeenum  |                2 |                                      | NO          | character varying |                       10 |                     40 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 2              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | name         |                3 |                                      | NO          | character varying |                       40 |                    160 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 3              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | email        |                4 |                                      | NO          | character varying |                       30 |                    120 |                   |                         |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | varchar  |               |              |            |                     | 4              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | departmentid |                5 |                                      | NO          | integer           |                          |                        |                32 |                       2 |             0 |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | int4     |               |              |            |                     | 5              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+ db02          | public       | employee   | salary       |                6 |                                      | NO          | numeric           |                          |                        |                   |                      10 |               |                    |               |                    |                       |                      |                    |                   |                  |                |                |               |             | db02        | pg_catalog | numeric  |               |              |            |                     | 6              | NO                  | NO          |                     |                |                    |                  |                  | NO             | NEVER        |                       | YES
+(6 rows)
+
+db02=# 
+db02=# SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departnmentid, AVG(e.salary) as avgsalary
+                FROM e
+                GROUP BY d.id
+                ORDER BY d.id
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+
+
+
+ERROR:  relation "e" does not exist
+LINE 6:                 FROM e
+                             ^
+db02=# SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departnmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+                GROUP BY d.id
+                ORDER BY d.id
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+ERROR:  column "departnmentid" does not exist
+LINE 5:                 SELECT departnmentid, AVG(e.salary) as avgsa...
+                               ^
+HINT:  Perhaps you meant to reference the column "e.departmentid" or the column "e.departmentid".
+db02=# SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+                GROUP BY d.id
+                ORDER BY d.id
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+ERROR:  invalid reference to FROM-clause entry for table "d"
+LINE 8:                 ORDER BY d.id
+                                 ^
+HINT:  There is an entry for table "d", but it cannot be referenced from this part of the query.
+db02=# SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as del$
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+ERROR:  column "e.departmentid" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 5:                 SELECT departmentid, AVG(e.salary) as avgsal...
+                               ^
+db02=# SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+                GROUP BY departmentid 
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+ERROR:  column e.employeename does not exist
+LINE 1: SELECT e.EmployeeName as "Emp", d.name as "Dept", e.salary, ...
+               ^
+HINT:  Perhaps you meant to reference the column "e.employeenum".
+db02=# SELECT e.Name as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+                GROUP BY departmentid 
+        ) as x on (x.departmentid = d.id)
+GROUP BY d.id;
+ERROR:  column "e.name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT e.Name as "Emp", d.name as "Dept", e.salary, X.avgSal...
+               ^
+db02=# SELECT e.Name as "Emp", d.name as "Dept", e.salary, X.avgSalary - e.salary as delta
+FROM Employee e
+        JOIN Department d on (e.departmentid = d.id)
+        JOIN (
+                SELECT departmentid, AVG(e.salary) as avgsalary
+                FROM Employee e
+                GROUP BY departmentid 
+        ) as x on (x.departmentid = d.id)
+ORDER BY d.name, e.name;
+   Emp   |      Dept      | salary |        delta        
+---------+----------------+--------+---------------------
+ Dave    | Administration |  93000 | -20500.000000000000
+ Winston | Administration |  52000 |  20500.000000000000
+ Albert  | Marketing      |  80000 |      0.000000000000
+ Alice   | Sales          |  72000 |  -6000.000000000000
+ Mark    | Sales          |  60000 |   6000.000000000000
+ Dan     | Software Dev   | 110000 |  12750.000000000000
+ Jack    | Software Dev   |  92000 |  30750.000000000000
+ John    | Software Dev   | 120000 |   2750.000000000000
+ John    | Software Dev   | 135000 | -12250.000000000000
+ Martha  | Software Dev   | 120000 |   2750.000000000000
+ Max     | Software Dev   | 105000 |  17750.000000000000
+ Sarah   | Software Dev   | 110000 |  12750.000000000000
+ Stan    | Software Dev   | 190000 | -67250.000000000000
+ Alice   | Software Test  |  98000 |   6000.000000000000
+ Sarah   | Software Test  | 110000 |  -6000.000000000000
+(15 rows)
+
+db02=# SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+FROM Room r 
+        JOIN Meeting me on (m.roomid = r.id)
+GROUP BY r.id
+ORDER BY r.building, r.roomnumber; 
+ERROR:  missing FROM-clause entry for table "m"
+LINE 3:  JOIN Meeting me on (m.roomid = r.id)
+                             ^
+db02=# SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+FROM Room r 
+        JOIN Meeting m on (m.roomid = r.id)
+GROUP BY r.id
+ORDER BY r.building, r.roomnumber; 
+ building | roomnumber | num_meetings 
+----------+------------+--------------
+ A        | 101        |            4
+ A        | 102        |            1
+ A        | 103        |            2
+ A        | 104        |            4
+ B        | 101        |            4
+ B        | 201        |            3
+ B        | 202        |            2
+(7 rows)
+
+db02=# SELECT COUNT(r.id) FROM room;
+ERROR:  missing FROM-clause entry for table "r"
+LINE 1: SELECT COUNT(r.id) FROM room;
+                     ^
+db02=# SELECT COUNT(r.id) FROM room r;
+ count 
+-------
+     9
+(1 row)
+
+db02=# SELECT DISTINCT COUNT(r.id) FROM room r;
+ count 
+-------
+     9
+(1 row)
+
+db02=# SELECT DISTINCT room.id FROM room;
+ id  
+-----
+ 201
+ 209
+ 205
+ 206
+ 204
+ 203
+ 202
+ 207
+ 208
+(9 rows)
+
+db02=# SELECT x.num_meetings / COUNT(r.ID) as meeting_average
+FROM Room r
+        JOIN 
+        (
+                SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+                FROM Room r
+                        JOIN Meeting m on (m.roomid = r.id)
+                GROUP BY r.id
+                HAVING num_meetings > 0
+                ORDER BY r.building, r.roomnumber;
+        ) as x on (m.roomid = r.id); 
+ERROR:  syntax error at or near ";"
+LINE 10:   ORDER BY r.building, r.roomnumber;
+                                            ^
+db02=# SELECT x.num_meetings / COUNT(r.ID) as meeting_average
+FROM Room r
+        JOIN 
+        (
+                SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+                FROM Room r
+                        JOIN Meeting m on (m.roomid = r.id)
+                GROUP BY r.id
+                HAVING num_meetings > 0
+                ORDER BY r.building, r.roomnumber
+        ) as x on (m.roomid = r.id); 
+ERROR:  column "num_meetings" does not exist
+LINE 9:   HAVING num_meetings > 0
+                 ^
+db02=# SELECT x.num_meetings / COUNT(r.ID) as meeting_average
+FROM Room r
+        JOIN 
+        (
+                SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+                FROM Room r
+                        JOIN Meeting m on (m.roomid = r.id)
+                GROUP BY r.id
+                HAVING COUNT(m.id) > 0
+                ORDER BY r.building, r.roomnumber
+        ) as x on (m.roomid = r.id); 
+ERROR:  missing FROM-clause entry for table "m"
+LINE 11:  ) as x on (m.roomid = r.id);
+                     ^
+db02=# SELECT ROUND(AVG(x.num_meetings), 2) as meeting_average
+FROM Room r
+        JOIN 
+        (
+                SELECT r.building, r.roomnumber, COUNT(m.id) as num_meetings
+                FROM Room r
+                        JOIN Meeting m on (m.roomid = r.id)
+                GROUP BY r.id, r.building, r.roomnumber
+                ORDER BY r.building, r.roomnumber
+        ) as x on (x.roomid = r.roomid); 
+ERROR:  column x.roomid does not exist
+LINE 10:  ) as x on (x.roomid = r.roomid);
+                     ^
+db02=# SELECT r.building, r.roomnumber as "roomNumber", m.starttime as "startTime", m.starttime:time + m.duration as "endTime"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY m.starttime, r.roomnumber;
+ERROR:  syntax error at or near ":"
+LINE 1: ...omNumber", m.starttime as "startTime", m.starttime:time + m....
+                                                             ^
+db02=# SELECT r.building, r.roomnumber as "roomNumber", m.starttime as "startTime", m.starttime::time + m.duration as "endTime"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY m.starttime, r.roomnumber;
+ building | roomNumber |      startTime      | endTime  
+----------+------------+---------------------+----------
+ A        | 101        | 2018-03-04 09:30:00 | 10:30:00
+ A        | 103        | 2018-03-04 09:30:00 | 10:30:00
+ A        | 102        | 2018-03-07 09:30:00 | 10:30:00
+ B        | 202        | 2018-03-07 11:30:00 | 13:00:00
+ B        | 201        | 2018-03-09 09:30:00 | 10:30:00
+ A        | 101        | 2018-03-11 09:30:00 | 10:30:00
+ A        | 104        | 2018-03-15 09:30:00 | 10:30:00
+ B        | 201        | 2018-03-15 09:30:00 | 10:30:00
+ A        | 104        | 2018-03-17 11:00:00 | 12:30:00
+ A        | 101        | 2018-03-18 09:30:00 | 10:30:00
+ A        | 103        | 2018-03-18 09:30:00 | 10:30:00
+ B        | 101        | 2018-03-21 12:00:00 | 13:00:00
+ A        | 101        | 2018-03-25 09:30:00 | 10:30:00
+ B        | 101        | 2018-03-28 12:00:00 | 13:00:00
+ B        | 101        | 2018-03-28 12:00:00 | 13:00:00
+ A        | 104        | 2018-03-28 12:30:00 | 14:00:00
+ A        | 104        | 2018-03-28 14:00:00 | 15:30:00
+ B        | 201        | 2018-03-28 14:00:00 | 17:00:00
+ B        | 202        | 2018-03-28 15:00:00 | 16:30:00
+ B        | 101        | 2018-04-05 12:00:00 | 13:00:00
+(20 rows)
+
+db02=# SELECT r.building, r.roomnumber as "roomNumber", m.starttime as "startTime", m.starttime::time + m.duration as "endTime"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+WHERE r.building = 'A'
+ORDER BY m.starttime, r.roomnumber;
+ building | roomNumber |      startTime      | endTime  
+----------+------------+---------------------+----------
+ A        | 101        | 2018-03-04 09:30:00 | 10:30:00
+ A        | 103        | 2018-03-04 09:30:00 | 10:30:00
+ A        | 102        | 2018-03-07 09:30:00 | 10:30:00
+ A        | 101        | 2018-03-11 09:30:00 | 10:30:00
+ A        | 104        | 2018-03-15 09:30:00 | 10:30:00
+ A        | 104        | 2018-03-17 11:00:00 | 12:30:00
+ A        | 101        | 2018-03-18 09:30:00 | 10:30:00
+ A        | 103        | 2018-03-18 09:30:00 | 10:30:00
+ A        | 101        | 2018-03-25 09:30:00 | 10:30:00
+ A        | 104        | 2018-03-28 12:30:00 | 14:00:00
+ A        | 104        | 2018-03-28 14:00:00 | 15:30:00
+(11 rows)
+
+db02=# SELECT r.building, r.roomnumber as "roomNumber", m.starttime as "startTime", m.starttime + m.duration as "endTime"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+WHERE r.building = 'A'
+ORDER BY m.starttime, r.roomnumber;
+ building | roomNumber |      startTime      |       endTime       
+----------+------------+---------------------+---------------------
+ A        | 101        | 2018-03-04 09:30:00 | 2018-03-04 10:30:00
+ A        | 103        | 2018-03-04 09:30:00 | 2018-03-04 10:30:00
+ A        | 102        | 2018-03-07 09:30:00 | 2018-03-07 10:30:00
+ A        | 101        | 2018-03-11 09:30:00 | 2018-03-11 10:30:00
+ A        | 104        | 2018-03-15 09:30:00 | 2018-03-15 10:30:00
+ A        | 104        | 2018-03-17 11:00:00 | 2018-03-17 12:30:00
+ A        | 101        | 2018-03-18 09:30:00 | 2018-03-18 10:30:00
+ A        | 103        | 2018-03-18 09:30:00 | 2018-03-18 10:30:00
+ A        | 101        | 2018-03-25 09:30:00 | 2018-03-25 10:30:00
+ A        | 104        | 2018-03-28 12:30:00 | 2018-03-28 14:00:00
+ A        | 104        | 2018-03-28 14:00:00 | 2018-03-28 15:30:00
+(11 rows)
+
+db02=# SELECT r.building, r.roomnumber, m.purpose, m.starttime::date as "startdate", m.starttime::time, m.starttime::time + m.duration as endtime
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY m.starttime, r.building, r.roomnumber; 
+ building | roomnumber |     purpose     | startdate  | starttime | endtime  
+----------+------------+-----------------+------------+-----------+----------
+ A        | 101        | Staff           | 2018-03-04 | 09:30:00  | 10:30:00
+ A        | 103        | Staff           | 2018-03-04 | 09:30:00  | 10:30:00
+ A        | 102        | Team Build      | 2018-03-07 | 09:30:00  | 10:30:00
+ B        | 202        | HR Presentation | 2018-03-07 | 11:30:00  | 13:00:00
+ B        | 201        | DB Issues       | 2018-03-09 | 09:30:00  | 10:30:00
+ A        | 101        | Staff           | 2018-03-11 | 09:30:00  | 10:30:00
+ A        | 104        | Post Mortem     | 2018-03-15 | 09:30:00  | 10:30:00
+ B        | 201        | Post Mortem     | 2018-03-15 | 09:30:00  | 10:30:00
+ A        | 104        | Sales           | 2018-03-17 | 11:00:00  | 12:30:00
+ A        | 101        | Staff           | 2018-03-18 | 09:30:00  | 10:30:00
+ A        | 103        | Staff           | 2018-03-18 | 09:30:00  | 10:30:00
+ B        | 101        | Lunch           | 2018-03-21 | 12:00:00  | 13:00:00
+ A        | 101        | Staff           | 2018-03-25 | 09:30:00  | 10:30:00
+ B        | 101        | Lunch           | 2018-03-28 | 12:00:00  | 13:00:00
+ B        | 101        | PlanningLunch   | 2018-03-28 | 12:00:00  | 13:00:00
+ A        | 104        | Planning        | 2018-03-28 | 12:30:00  | 14:00:00
+ A        | 104        | IT Planning     | 2018-03-28 | 14:00:00  | 15:30:00
+ B        | 201        | Party           | 2018-03-28 | 14:00:00  | 17:00:00
+ B        | 202        | Test Planning   | 2018-03-28 | 15:00:00  | 16:30:00
+ B        | 101        | Lunch           | 2018-04-05 | 12:00:00  | 13:00:00
+(20 rows)
+
+db02=# SELECT r.building, r.roomnumber as "roomNumber", COALESCE (m.capacity, 'unknown') as "numSeats"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY r.building, r.roomnumber;
+ERROR:  column m.capacity does not exist
+LINE 1: ...building, r.roomnumber as "roomNumber", COALESCE (m.capacity...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "r.capacity".
+db02=# SELECT r.building, r.roomnumber as "roomNumber", COALESCE (r.capacity, 'unknown') as "numSeats"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY r.building, r.roomnumber;
+ERROR:  invalid input syntax for type integer: "unknown"
+LINE 1: ...roomnumber as "roomNumber", COALESCE (r.capacity, 'unknown')...
+                                                             ^
+db02=# SELECT r.building, r.roomnumber as "roomNumber", COALESCE (r.capacity::text, 'unknown') as "numSeats"
+FROM Room r
+        JOIN Meeting m on (m.roomid = r.id)
+ORDER BY r.building, r.roomnumber;
+ building | roomNumber | numSeats 
+----------+------------+----------
+ A        | 101        | 10
+ A        | 101        | 10
+ A        | 101        | 10
+ A        | 101        | 10
+ A        | 102        | 30
+ A        | 103        | 20
+ A        | 103        | 20
+ A        | 104        | 5
+ A        | 104        | 5
+ A        | 104        | 5
+ A        | 104        | 5
+ B        | 101        | 20
+ B        | 101        | 20
+ B        | 101        | 20
+ B        | 101        | 20
+ B        | 201        | unknown
+ B        | 201        | unknown
+ B        | 201        | unknown
+ B        | 202        | 30
+ B        | 202        | 30
+(20 rows)
+
+db02=# SELECT r.building as "Building", COUNT(r.id) as "RoomsWithCapacity"
+FROM Room r
+WHERE r.capacity IS NOT NULL
+ORDER BY r.building, r.roomnumber;
+ERROR:  column "r.building" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT r.building as "Building", COUNT(r.id) as "RoomsWithCa...
+               ^
+db02=# SELECT r.building as "Building", COUNT(r.id) as "RoomsWithCapacity"
+FROM Room r
+WHERE r.capacity IS NOT NULL
+GROUP BY r.building
+ORDER BY r.building, r.roomnumber;
+ERROR:  column "r.roomnumber" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 5: ORDER BY r.building, r.roomnumber;
+                             ^
+db02=# SELECT r.building as "Building", COUNT(r.id) as "RoomsWithCapacity"
+FROM Room r
+WHERE r.capacity IS NOT NULL
+GROUP BY r.building
+ORDER BY r.building;
+ Building | RoomsWithCapacity 
+----------+-------------------
+ A        |                 4
+ B        |                 4
+(2 rows)
+
+db02=# SELECT SUM(r.capacity) as "Total Known Seat Count"
+FROM Room r; 
+ Total Known Seat Count 
+------------------------
+                    137
+(1 row)
+
+db02=# SELECT capacity from Room;
+ capacity 
+----------
+       10
+       30
+       20
+        5
+       20
+       20
+       30
+        2
+         
+(9 rows)
+
+db02=# SELECT id, capacity FROM Room;
+ id  | capacity 
+-----+----------
+ 201 |       10
+ 202 |       30
+ 203 |       20
+ 204 |        5
+ 205 |       20
+ 206 |       20
+ 208 |       30
+ 209 |        2
+ 207 |         
+(9 rows)
+
+db02=# SELECT SUM( COALESCE(capacity, 100)) as "Total Seat Count"
+FROM Room;  
+ Total Seat Count 
+------------------
+              237
+(1 row)
+
+db02=# SELECT purpose, starttime::date, starttime::time
+FROM Meeting m 
+WHERE starttime BETWEEN '11:00:00' AND '14:00:00'; 
+ERROR:  invalid input syntax for type timestamp: "11:00:00"
+LINE 3: WHERE starttime BETWEEN '11:00:00' AND '14:00:00';
+                                ^
+db02=# SELECT purpose, starttime::date, starttime::time
+FROM Meeting m 
+WHERE starttime BETWEEN "11:00:00" AND "14:00:00";  
+ERROR:  column "11:00:00" does not exist
+LINE 3: WHERE starttime BETWEEN "11:00:00" AND "14:00:00";
+                                ^
+db02=# SELECT m.starttime FROM Meeting m;
+      starttime      
+---------------------
+ 2018-03-04 09:30:00
+ 2018-03-11 09:30:00
+ 2018-03-18 09:30:00
+ 2018-03-25 09:30:00
+ 2018-03-04 09:30:00
+ 2018-03-18 09:30:00
+ 2018-03-17 11:00:00
+ 2018-03-09 09:30:00
+ 2018-03-15 09:30:00
+ 2018-03-07 11:30:00
+ 2018-03-07 09:30:00
+ 2018-03-21 12:00:00
+ 2018-03-28 12:00:00
+ 2018-04-05 12:00:00
+ 2018-03-28 12:00:00
+ 2018-03-15 09:30:00
+ 2018-03-28 12:30:00
+ 2018-03-28 14:00:00
+ 2018-03-28 15:00:00
+ 2018-03-28 14:00:00
+(20 rows)
+
+db02=# SELECT purpose, starttime::date, starttime::time
+FROM Meeting m 
+WHERE starttime::time BETWEEN "11:00:00" AND "14:00:00";  
+ERROR:  column "11:00:00" does not exist
+LINE 3: WHERE starttime::time BETWEEN "11:00:00" AND "14:00:00";
+                                      ^
+db02=# SELECT purpose, starttime::date as startdate, starttime::time as starttime
+FROM Meeting m 
+WHERE starttime::time BETWEEN '11:00:00' AND '14:00:00';  
+     purpose     | startdate  | starttime 
+-----------------+------------+-----------
+ Sales           | 2018-03-17 | 11:00:00
+ HR Presentation | 2018-03-07 | 11:30:00
+ Lunch           | 2018-03-21 | 12:00:00
+ Lunch           | 2018-03-28 | 12:00:00
+ Lunch           | 2018-04-05 | 12:00:00
+ PlanningLunch   | 2018-03-28 | 12:00:00
+ Planning        | 2018-03-28 | 12:30:00
+ IT Planning     | 2018-03-28 | 14:00:00
+ Party           | 2018-03-28 | 14:00:00
+(9 rows)
+
+db02=# SELECT purpose, starttime, duration 
+FROM Meeting m
+WHERE starttime::time <= '15:00:00'
+ORDER BY m.id;
+     purpose     |      starttime      | duration 
+-----------------+---------------------+----------
+ Staff           | 2018-03-04 09:30:00 | 01:00:00
+ Staff           | 2018-03-11 09:30:00 | 01:00:00
+ Staff           | 2018-03-18 09:30:00 | 01:00:00
+ Staff           | 2018-03-25 09:30:00 | 01:00:00
+ Staff           | 2018-03-04 09:30:00 | 01:00:00
+ Staff           | 2018-03-18 09:30:00 | 01:00:00
+ Sales           | 2018-03-17 11:00:00 | 01:30:00
+ DB Issues       | 2018-03-09 09:30:00 | 01:00:00
+ Post Mortem     | 2018-03-15 09:30:00 | 01:00:00
+ HR Presentation | 2018-03-07 11:30:00 | 01:30:00
+ Team Build      | 2018-03-07 09:30:00 | 01:00:00
+ Lunch           | 2018-03-21 12:00:00 | 01:00:00
+ Lunch           | 2018-03-28 12:00:00 | 01:00:00
+ Lunch           | 2018-04-05 12:00:00 | 01:00:00
+ PlanningLunch   | 2018-03-28 12:00:00 | 01:00:00
+ Post Mortem     | 2018-03-15 09:30:00 | 01:00:00
+ Planning        | 2018-03-28 12:30:00 | 01:30:00
+ IT Planning     | 2018-03-28 14:00:00 | 01:30:00
+ Test Planning   | 2018-03-28 15:00:00 | 01:30:00
+ Party           | 2018-03-28 14:00:00 | 03:00:00
+(20 rows)
+
+db02=# SELECT purpose, starttime, duration 
+FROM Meeting m
+WHERE starttime::time > '15:00:00'
+ORDER BY m.id;
+ purpose | starttime | duration 
+---------+-----------+----------
+(0 rows)
+
+db02=# SELECT purpose, starttime, duration 
+FROM Meeting m
+WHERE (starttime::time + duration) > '16:00:00'
+ORDER BY m.id;
+    purpose    |      starttime      | duration 
+---------------+---------------------+----------
+ Test Planning | 2018-03-28 15:00:00 | 01:30:00
+ Party         | 2018-03-28 14:00:00 | 03:00:00
+(2 rows)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+WHERE starttime::date = '2018-03-28' AND (starttime::time + duration) BETWEEN '14:30:00' AND '15:30:00'
+ORDER BY m.id;
+   purpose   |      starttime      | duration 
+-------------+---------------------+----------
+ IT Planning | 2018-03-28 14:00:00 | 01:30:00
+(1 row)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+WHERE starttime::date = '2018-03-28' AND (starttime::time + duration) BETWEEN '14:30:00' AND '15:30:00' INCLUSIVE
+ORDER BY m.id;
+ERROR:  syntax error at or near "INCLUSIVE"
+LINE 3: ...time + duration) BETWEEN '14:30:00' AND '15:30:00' INCLUSIVE
+                                                              ^
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+WHERE starttime BETWEEN '2018-03-28 13:30:00' and '2018-03-28 14:30:00'
+ORDER BY starttime, m.id;
+   purpose   |      starttime      | duration 
+-------------+---------------------+----------
+ IT Planning | 2018-03-28 14:00:00 | 01:30:00
+ Party       | 2018-03-28 14:00:00 | 03:00:00
+(2 rows)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+WHERE starttime BETWEEN '2018-03-28 13:30:00' AND '2018-03-28 14:30:00'
+ORDER BY m.id;
+   purpose   |      starttime      | duration 
+-------------+---------------------+----------
+ IT Planning | 2018-03-28 14:00:00 | 01:30:00
+ Party       | 2018-03-28 14:00:00 | 03:00:00
+(2 rows)
+
+db02=# SELECT DISTINCT purpose 
+FROM Meeting m
+WHERE moderatorID IS NULL
+ORDER BY purpose;
+   purpose   
+-------------
+ IT Planning
+ Lunch
+ Party
+ Planning
+(4 rows)
+
+db02=# SELECT DISTINCT employeenum, name
+FROM Employee e 
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting me ON (a.meetingid = m.id)
+WHERE m.starttime BETWEEN '2018-03-18 9:00:00' AND '2018-03-18 10:00:00'
+ORDER BY employeenum; 
+ERROR:  missing FROM-clause entry for table "m"
+LINE 4:  JOIN Meeting me ON (a.meetingid = m.id)
+                                           ^
+db02=# SELECT DISTINCT employeenum, name
+FROM Employee e 
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE m.starttime BETWEEN '2018-03-18 9:00:00' AND '2018-03-18 10:00:00'
+ORDER BY employeenum; 
+ employeenum |  name   
+-------------+---------
+ A000000001  | Alice
+ A000000002  | Alice
+ A000000003  | Albert
+ D000000001  | Dan
+ D000000002  | Dave
+ J000000001  | John
+ J000000002  | Jack
+ J000000003  | John
+ M000000001  | Max
+ M000000003  | Martha
+ S000000001  | Sarah
+ S000000003  | Sarah
+ W000000001  | Winston
+(13 rows)
+
+db02=# SELECT e.employeenum, e.name as "employeeName", COUNT(m.id) as "numMeetings"
+FROM Employee e
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+GROUP BY e.id, e.employeenum, e.name
+HAVING COUNT(m.id) > 1
+ORDER BY e.employeenum
+db02-# 
+db02-# ;
+ employeenum | employeeName | numMeetings 
+-------------+--------------+-------------
+ A000000001  | Alice        |          11
+ A000000002  | Alice        |           9
+ A000000003  | Albert       |          11
+ D000000001  | Dan          |           7
+ D000000002  | Dave         |          14
+ J000000001  | John         |           7
+ J000000002  | Jack         |          11
+ J000000003  | John         |           9
+ M000000001  | Max          |           8
+ M000000002  | Mark         |           8
+ M000000003  | Martha       |           9
+ S000000001  | Sarah        |           8
+ S000000002  | Stan         |           5
+ S000000003  | Sarah        |          10
+ W000000001  | Winston      |           7
+(15 rows)
+
+db02=# SELECT duration FROM MEETING;
+ duration 
+----------
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:30:00
+ 01:00:00
+ 01:00:00
+ 01:30:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:00:00
+ 01:30:00
+ 01:30:00
+ 01:30:00
+ 03:00:00
+(20 rows)
+
+db02=# SELECT starttime, duration FROM meeting
+db02-# ;
+      starttime      | duration 
+---------------------+----------
+ 2018-03-04 09:30:00 | 01:00:00
+ 2018-03-11 09:30:00 | 01:00:00
+ 2018-03-18 09:30:00 | 01:00:00
+ 2018-03-25 09:30:00 | 01:00:00
+ 2018-03-04 09:30:00 | 01:00:00
+ 2018-03-18 09:30:00 | 01:00:00
+ 2018-03-17 11:00:00 | 01:30:00
+ 2018-03-09 09:30:00 | 01:00:00
+ 2018-03-15 09:30:00 | 01:00:00
+ 2018-03-07 11:30:00 | 01:30:00
+ 2018-03-07 09:30:00 | 01:00:00
+ 2018-03-21 12:00:00 | 01:00:00
+ 2018-03-28 12:00:00 | 01:00:00
+ 2018-04-05 12:00:00 | 01:00:00
+ 2018-03-28 12:00:00 | 01:00:00
+ 2018-03-15 09:30:00 | 01:00:00
+ 2018-03-28 12:30:00 | 01:30:00
+ 2018-03-28 14:00:00 | 01:30:00
+ 2018-03-28 15:00:00 | 01:30:00
+ 2018-03-28 14:00:00 | 03:00:00
+(20 rows)
+
+db02=# SELECT e.employeenum, e.name as "employeeName", COUNT(m.id) as "numMeetings"
+FROM Employee e
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE (m.starttime + m.duration) BETWEEN '2018-03-18 10:00:00' AND '2018-03-18 13:00:00'
+GROUP BY e.id, e.employeenum, e.name
+HAVING COUNT(m.id) > 1
+ORDER BY e.employeenum;
+ employeenum | employeeName | numMeetings 
+-------------+--------------+-------------
+ S000000001  | Sarah        |           2
+ S000000003  | Sarah        |           2
+(2 rows)
+
+db02=# \d 
+               List of relations
+ Schema |      Name       |   Type   |  Owner   
+--------+-----------------+----------+----------
+ public | attendees       | table    | postgres
+ public | department      | table    | postgres
+ public | employee        | table    | postgres
+ public | employee_id_seq | sequence | postgres
+ public | meeting         | table    | postgres
+ public | meeting_id_seq  | sequence | postgres
+ public | phone           | table    | postgres
+ public | phone_id_seq    | sequence | postgres
+ public | phonetype       | table    | postgres
+ public | room            | table    | postgres
+ public | room_id_seq     | sequence | postgres
+(11 rows)
+
+db02=# VIEW attendees
+db02-# ;
+ERROR:  syntax error at or near "VIEW"
+LINE 1: VIEW attendees
+        ^
+db02=# SELECT * from attendees
+db02-# ;
+ meetingid | employeeid 
+-----------+------------
+       101 |         10
+       101 |         11
+       101 |         12
+       101 |         13
+       101 |         14
+       101 |         15
+       102 |         10
+       102 |         11
+       102 |         12
+       102 |         13
+       102 |         14
+       102 |         15
+       103 |         10
+       103 |         11
+       103 |         12
+       103 |         13
+       103 |         14
+       103 |         15
+       103 |          1
+       103 |          8
+       104 |         10
+       104 |         11
+       104 |         12
+       104 |         13
+       104 |         14
+       104 |         15
+       105 |          1
+       105 |          2
+       105 |          3
+       105 |          4
+       105 |          5
+       105 |          6
+       106 |          1
+       106 |          2
+       106 |          3
+       106 |          4
+       106 |          5
+       106 |          6
+       106 |          8
+       107 |          8
+       107 |          9
+       107 |         10
+       108 |         13
+       108 |         14
+       108 |         15
+       108 |          9
+       109 |         10
+       109 |         11
+       109 |         12
+       109 |         13
+       109 |         14
+       109 |         15
+       110 |          1
+       110 |          2
+       110 |          3
+       110 |          4
+       110 |          5
+       110 |          6
+       110 |          7
+       110 |          8
+       110 |          9
+       110 |         10
+       110 |         11
+       110 |         12
+       110 |         13
+       110 |         14
+       111 |          1
+       111 |          2
+       111 |          3
+       111 |          4
+       111 |          5
+       111 |          6
+       112 |          6
+       112 |          7
+       112 |          8
+       112 |          9
+       112 |         10
+       112 |         11
+       113 |          6
+       113 |          7
+       113 |          8
+       113 |          9
+       113 |         10
+       113 |         11
+       113 |         15
+       114 |          6
+       114 |          7
+       114 |          8
+       114 |          9
+       114 |         10
+       114 |         11
+       115 |          1
+       115 |          2
+       115 |          3
+       115 |          4
+       115 |          5
+       115 |          6
+       115 |         15
+       116 |         10
+       116 |         11
+       116 |         12
+       116 |         13
+       116 |         14
+       116 |         15
+       117 |          4
+       117 |          6
+       117 |          8
+       117 |         10
+       117 |         12
+       118 |          1
+       118 |          2
+       118 |          3
+       118 |          4
+       118 |          5
+       118 |          6
+       118 |         15
+       119 |          8
+       119 |          9
+       119 |         10
+       120 |          1
+       120 |          2
+       120 |          3
+       120 |          4
+       120 |          5
+       120 |          6
+       120 |          7
+       120 |          8
+       120 |          9
+       120 |         10
+       120 |         11
+       120 |         12
+       120 |         13
+       120 |         14
+       120 |         15
+(134 rows)
+
+db02=# SELECT * FROM Employee LIMIT 5;
+ id | employeenum |  name   |       email        | departmentid | salary 
+----+-------------+---------+--------------------+--------------+--------
+  1 | S000000001  | Sarah   | sarah1@bigco.com   |            1 | 110000
+  2 | J000000001  | John    | john1@bigco.com    |            1 | 120000
+  3 | W000000001  | Winston | winston1@bigco.com |            4 |  52000
+  4 | M000000001  | Max     | max1@bigco.com     |            1 | 105000
+  5 | D000000001  | Dan     | dan1@bigco.com     |            1 | 110000
+(5 rows)
+
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = employee.id)
+        JOIN Meeting me on (m.id = a.meetingid)
+WHERE m.moderatorid NOT NULL; 
+GROUP BY e.id;
+ERROR:  syntax error at or near "NOT"
+LINE 5: WHERE m.moderatorid NOT NULL;
+                            ^
+ERROR:  syntax error at or near "GROUP"
+LINE 1: GROUP BY e.id;
+        ^
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = employee.id)
+        JOIN Meeting me on (m.id = a.meetingid)
+WHERE m.moderatorid IS NOT NULL; 
+GROUP BY e.id, e.employeenum, e.name;
+ERROR:  invalid reference to FROM-clause entry for table "employee"
+LINE 3:  JOIN Attendees a ON (e.id = employee.id)
+                                     ^
+HINT:  Perhaps you meant to reference the table alias "e".
+ERROR:  syntax error at or near "GROUP"
+LINE 1: GROUP BY e.id, e.employeenum, e.name;
+        ^
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = a.employeeid)
+        JOIN Meeting me on (m.id = a.meetingid)
+WHERE m.moderatorid IS NOT NULL; 
+GROUP BY e.id, e.employeenum, e.name;
+ERROR:  missing FROM-clause entry for table "m"
+LINE 4:  JOIN Meeting me on (m.id = a.meetingid)
+                             ^
+ERROR:  syntax error at or near "GROUP"
+LINE 1: GROUP BY e.id, e.employeenum, e.name;
+        ^
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = a.employeeid)
+        JOIN Meeting me on (m.id = a.meetingid)
+WHERE m.moderatorid IS NOT NULL
+GROUP BY e.employeenum, e.name; 
+ERROR:  missing FROM-clause entry for table "m"
+LINE 4:  JOIN Meeting me on (m.id = a.meetingid)
+                             ^
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = a.employeeid)
+        JOIN Meeting m on (m.id = a.meetingid)
+WHERE m.moderatorid IS NOT NULL
+GROUP BY e.employeenum, e.name; 
+ employeenum |  name   | totalDuration 
+-------------+---------+---------------
+ A000000003  | Albert  | 08:00:00
+ M000000002  | Mark    | 05:30:00
+ S000000002  | Stan    | 01:30:00
+ D000000001  | Dan     | 05:30:00
+ W000000001  | Winston | 05:30:00
+ D000000002  | Dave    | 10:30:00
+ J000000002  | Jack    | 07:30:00
+ S000000001  | Sarah   | 06:30:00
+ J000000003  | John    | 07:30:00
+ S000000003  | Sarah   | 06:30:00
+ M000000001  | Max     | 05:30:00
+ A000000001  | Alice   | 05:30:00
+ A000000002  | Alice   | 08:30:00
+ J000000001  | John    | 05:30:00
+ M000000003  | Martha  | 08:30:00
+(15 rows)
+
+db02=# SELECT e.employeenum, e.name, SUM(m.duration) as "totalDuration"
+FROM Employee e 
+        JOIN Attendees a ON (e.id = a.employeeid)
+        JOIN Meeting m on (m.id = a.meetingid)
+WHERE m.moderatorid IS NOT NULL
+GROUP BY e.employeenum, e.name
+ORDER BY "totalDuration" DESC
+LIMIT 1; 
+ employeenum | name | totalDuration 
+-------------+------+---------------
+ D000000002  | Dave | 10:30:00
+(1 row)
+
+db02=# SELECT * FROM Meeting Limit 5;
+ id  | roomid |      starttime      | duration | purpose | creatorid | moderatorid 
+-----+--------+---------------------+----------+---------+-----------+-------------
+ 101 |    201 | 2018-03-04 09:30:00 | 01:00:00 | Staff   |        14 |          14
+ 102 |    201 | 2018-03-11 09:30:00 | 01:00:00 | Staff   |        14 |          14
+ 103 |    201 | 2018-03-18 09:30:00 | 01:00:00 | Staff   |        14 |          14
+ 104 |    201 | 2018-03-25 09:30:00 | 01:00:00 | Staff   |        14 |          14
+ 105 |    203 | 2018-03-04 09:30:00 | 01:00:00 | Staff   |         3 |           4
+(5 rows)
+
+db02=# /d
+db02-# ;
+ERROR:  syntax error at or near "/"
+LINE 1: /d
+        ^
+db02=# /d db02
+db02-# /c 
+db02-# \d 
+               List of relations
+ Schema |      Name       |   Type   |  Owner   
+--------+-----------------+----------+----------
+ public | attendees       | table    | postgres
+ public | department      | table    | postgres
+ public | employee        | table    | postgres
+ public | employee_id_seq | sequence | postgres
+ public | meeting         | table    | postgres
+ public | meeting_id_seq  | sequence | postgres
+ public | phone           | table    | postgres
+ public | phone_id_seq    | sequence | postgres
+ public | phonetype       | table    | postgres
+ public | room            | table    | postgres
+ public | room_id_seq     | sequence | postgres
+(11 rows)
+
+db02-# SELECT m.purpose, AVG(e.salary) as "Average Salary"
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.purpose
+ORDER BY m.purpose;
+ERROR:  syntax error at or near "/"
+LINE 1: /d db02
+        ^
+db02=# ;
+db02=# SELECT m.purpose, AVG(e.salary) as "Average Salary"
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.purpose
+ORDER BY m.purpose;
+     purpose     |   Average Salary    
+-----------------+---------------------
+ DB Issues       |  83000.000000000000
+ HR Presentation | 104785.714285714286
+ IT Planning     |  96428.571428571429
+ Lunch           | 105736.842105263158
+ Party           | 103133.333333333333
+ Planning        | 108200.000000000000
+ PlanningLunch   |  96428.571428571429
+ Post Mortem     |  98666.666666666667
+ Sales           |  87666.666666666667
+ Staff           |  99692.307692307692
+ Team Build      |  99166.666666666667
+ Test Planning   |  87666.666666666667
+(12 rows)
+
+db02=# SELECT m.purpose, ROUND(AVG(e.salary), 2) as "Average Salary"
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.purpose
+ORDER BY m.purpose;
+     purpose     | Average Salary 
+-----------------+----------------
+ DB Issues       |       83000.00
+ HR Presentation |      104785.71
+ IT Planning     |       96428.57
+ Lunch           |      105736.84
+ Party           |      103133.33
+ Planning        |      108200.00
+ PlanningLunch   |       96428.57
+ Post Mortem     |       98666.67
+ Sales           |       87666.67
+ Staff           |       99692.31
+ Team Build      |       99166.67
+ Test Planning   |       87666.67
+(12 rows)
+
+db02=# SELECT e.id FROM Employee e LIMIT 5
+db02-# ;
+ id 
+----
+  1
+  2
+  3
+  4
+  5
+(5 rows)
+
+db02=# SELECT e.id, m.id, r.id 
+db02-# FROM Employee e
+db02-# JOIN Meeting m on (m.creatorid = e.id)
+db02-# JOIN Room r on (r.id = m.roomid)
+db02-# LIMIT 10; 
+ id | id  | id  
+----+-----+-----
+ 14 | 101 | 201
+ 14 | 102 | 201
+ 14 | 103 | 201
+ 14 | 104 | 201
+  3 | 105 | 203
+  3 | 106 | 203
+  3 | 107 | 204
+  6 | 108 | 207
+  5 | 109 | 207
+ 11 | 110 | 208
+(10 rows)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001’
+ORDER BY m.starttime;  
+db02'# 
+db02'# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001’
+ORDER BY m.starttime;  
+ERROR:  syntax error at or near "A000000001’"
+LINE 12: WHERE e.employeenum = 'A000000001’
+                                ^
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum IS 'A000000001’
+ORDER BY m.starttime;  
+db02'# 
+db02'# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum IS 'A000000001’
+ORDER BY m.starttime;  
+ERROR:  syntax error at or near "'A000000001’
+ORDER BY m.starttime;  
+
+
+SELECT purpose, starttime, duration
+FROM Meeting m
+	JOIN Employee e ON (e.id = m.creatorid)
+	JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum IS '"
+LINE 5: WHERE e.employeenum IS 'A000000001’
+                               ^
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001’
+ORDER BY m.starttime;  
+db02'# 
+db02'# 
+db02'# 
+db02'# ;
+db02'# 
+db02'# 
+db02'# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = A000000001
+ORDER BY m.starttime;  
+db02'# \q
+Use control-D to quit.
+db02'# 
+\q
+(base) inayarizvi@MacBookPro ~ % psql -U postgres
+psql (15.10 (Homebrew))
+Type "help" for help.
+
+postgres=# \c db02
+You are now connected to database "db02" as user "postgres".
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = A000000001
+ORDER BY m.starttime;  
+ERROR:  column "a000000001" does not exist
+LINE 5: WHERE e.employeenum = A000000001
+                              ^
+db02=# SELECT e.employeenum FROM Employee e;
+ employeenum 
+-------------
+ S000000001
+ J000000001
+ W000000001
+ M000000001
+ D000000001
+ A000000001
+ S000000002
+ S000000003
+ M000000002
+ D000000002
+ J000000002
+ J000000003
+ M000000003
+ A000000002
+ A000000003
+(15 rows)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001'
+ORDER BY m.starttime;  
+  purpose  |      starttime      | duration 
+-----------+---------------------+----------
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+(11 rows)
+
+db02=# SELECT m.purpose, m.starttime, m.duration, e.employeenum
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001'
+ORDER BY m.starttime;  
+  purpose  |      starttime      | duration | employeenum 
+-----------+---------------------+----------+-------------
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00 | A000000001
+(11 rows)
+
+db02=# SELECT m.purpose FROM Meeting m 
+db02-# JOIN Employee e ON (e.id = m.creatorid)
+db02-# JOIN Attendees a ON (a.employeeid = e.id)
+db02-# WHERE e.employeenum = 'A000000001'
+db02-# ORDER BY m.starttime;
+  purpose  
+-----------
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+ DB Issues
+(11 rows)
+
+db02=# SELECT m.purpose, e.employeenum FROM Meeting m 
+JOIN Employee e ON (e.id = m.creatorid)
+JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001'
+ORDER BY m.starttime;
+  purpose  | employeenum 
+-----------+-------------
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+ DB Issues | A000000001
+(11 rows)
+
+db02=# SELECT m.purpose, e.employeenum FROM Meeting m 
+JOIN Employee e ON (e.id = m.creatorid)
+JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001' AND m.purpose = 'Staff'
+ORDER BY m.starttime;
+ purpose | employeenum 
+---------+-------------
+(0 rows)
+
+db02=# SELECT purpose, starttime, duration
+FROM Meeting m
+        JOIN Employee e ON (e.id = m.creatorid)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE e.employeenum = 'A000000001'
+ORDER BY m.starttime;  
+  purpose  |      starttime      | duration 
+-----------+---------------------+----------
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+ DB Issues | 2018-03-09 09:30:00 | 01:00:00
+(11 rows)
+
+db02=# SELECT e.employeenum, e.name, COUNT(p.phonetypeid) as "Num Phones"
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN PhoneType pt ON (pt.id = p.phonetypeid)
+GROUP BY e.id
+HAVING COUNT(p.phonetypeid) >= 2
+ORDER BY e.employeenum;
+ employeenum |  name   | Num Phones 
+-------------+---------+------------
+ A000000001  | Alice   |          2
+ A000000002  | Alice   |          2
+ A000000003  | Albert  |          5
+ D000000001  | Dan     |          4
+ D000000002  | Dave    |          3
+ J000000001  | John    |          3
+ J000000002  | Jack    |          2
+ J000000003  | John    |          2
+ M000000003  | Martha  |          3
+ S000000001  | Sarah   |          3
+ S000000002  | Stan    |          2
+ W000000001  | Winston |          2
+(12 rows)
+
+db02=# SELECT e.name, pt.name as "phone type", p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN PhoneType pt ON (pt.id = p.phonetypeid)
+WHERE e.email = 'a%' 
+ORDER BY e.name, e.number; 
+ERROR:  column e.number does not exist
+LINE 6: ORDER BY e.name, e.number;
+                         ^
+HINT:  Perhaps you meant to reference the column "p.number".
+db02=# SELECT e.name, pt.name as "phone type", p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN PhoneType pt ON (pt.id = p.phonetypeid)
+WHERE e.email = 'a%' 
+ORDER BY e.name, p.number; 
+ name | phone type | number 
+------+------------+--------
+(0 rows)
+
+db02=# SELECT e.name, pt.name as "phone type", p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN PhoneType pt ON (pt.id = p.phonetypeid)
+WHERE e.email LIKE 'a%' 
+ORDER BY e.name, p.number; 
+  name  | phone type |  number  
+--------+------------+----------
+ Albert | Work       | 132-6789
+ Albert | Home       | 133-7890
+ Albert | Home       | 133-7891
+ Albert | Cell       | 134-4567
+ Albert | Pager      | 134-4567
+ Alice  | Work       | 126-4567
+ Alice  | Cell       | 126-5678
+ Alice  | Work       | 130-4567
+ Alice  | Cell       | 131-5678
+(9 rows)
+
+db02=# Select pt.id FROM PhoneType pt LIMIT 10;
+ id 
+----
+ C
+ W
+ H
+ P
+ B
+(5 rows)
+
+db02=# SELECT e.name, pt.id as "phone type", p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN PhoneType pt ON (pt.id = p.phonetypeid)
+WHERE e.email LIKE 'a%' 
+ORDER BY e.name, p.number; 
+  name  | phone type |  number  
+--------+------------+----------
+ Albert | W          | 132-6789
+ Albert | H          | 133-7890
+ Albert | H          | 133-7891
+ Albert | C          | 134-4567
+ Albert | P          | 134-4567
+ Alice  | W          | 126-4567
+ Alice  | C          | 126-5678
+ Alice  | W          | 130-4567
+ Alice  | C          | 131-5678
+(9 rows)
+
+db02=# SELECT d.name as "DepartmentName", COUNT(e.id) as "numEmployees", ROUND(AVG(e.salary), 2) as "Average Salary", SUM(e.salary) as "totalSalaryAmount"
+FROM Employee e 
+        JOIN Department d ON (d.id = e.departmentid)
+GROUP BY d.id, d.name
+ORDER BY d.name; 
+ DepartmentName | numEmployees | Average Salary | totalSalaryAmount 
+----------------+--------------+----------------+-------------------
+ Administration |            2 |       72500.00 |            145000
+ Marketing      |            1 |       80000.00 |             80000
+ Sales          |            2 |       66000.00 |            132000
+ Software Dev   |            8 |      122750.00 |            982000
+ Software Test  |            2 |      104000.00 |            208000
+(5 rows)
+
+db02=# SELECT e.name, p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN Attendees a ON (a.employeeid = e.id)
+WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28'
+ORDER BY e.name; 
+ERROR:  missing FROM-clause entry for table "m"
+LINE 5: WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28'
+              ^
+db02=# SELECT e.name, p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28'
+ORDER BY e.name; 
+  name  |  number  
+--------+----------
+ Albert | 133-7890
+ Albert | 132-6789
+ Albert | 134-4567
+ Albert | 134-4567
+ Albert | 133-7891
+ Alice  | 126-4567
+ Alice  | 126-5678
+ Dave   | 127-7890
+ Dave   | 128-4567
+ Dave   | 127-6789
+ Jack   | 128-6789
+ Jack   | 128-5678
+ Mark   | 127-5678
+ Sarah  | 127-4567
+ Stan   | 126-6789
+ Stan   | 126-7890
+(16 rows)
+
+db02=# SELECT e.name, p.number, e.employeenum, m.purpose
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28'
+ORDER BY e.name; 
+  name  |  number  | employeenum | purpose 
+--------+----------+-------------+---------
+ Albert | 133-7890 | A000000003  | Lunch
+ Albert | 132-6789 | A000000003  | Lunch
+ Albert | 134-4567 | A000000003  | Lunch
+ Albert | 134-4567 | A000000003  | Lunch
+ Albert | 133-7891 | A000000003  | Lunch
+ Alice  | 126-4567 | A000000001  | Lunch
+ Alice  | 126-5678 | A000000001  | Lunch
+ Dave   | 127-7890 | D000000002  | Lunch
+ Dave   | 128-4567 | D000000002  | Lunch
+ Dave   | 127-6789 | D000000002  | Lunch
+ Jack   | 128-6789 | J000000002  | Lunch
+ Jack   | 128-5678 | J000000002  | Lunch
+ Mark   | 127-5678 | M000000002  | Lunch
+ Sarah  | 127-4567 | S000000003  | Lunch
+ Stan   | 126-6789 | S000000002  | Lunch
+ Stan   | 126-7890 | S000000002  | Lunch
+(16 rows)
+
+db02=# SELECT e.name, p.number, e.employeenum, m.purpose
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28' AND p.phonetypeid = 'C'
+ORDER BY e.name; 
+  name  |  number  | employeenum | purpose 
+--------+----------+-------------+---------
+ Albert | 134-4567 | A000000003  | Lunch
+ Alice  | 126-5678 | A000000001  | Lunch
+ Dave   | 127-7890 | D000000002  | Lunch
+ Jack   | 128-6789 | J000000002  | Lunch
+(4 rows)
+
+db02=# SELECT e.name, p.number
+FROM Employee e 
+        JOIN Phone p ON (p.employeeid = e.id)
+        JOIN Attendees a ON (a.employeeid = e.id)
+        JOIN Meeting m ON (a.meetingid = m.id)
+WHERE m.purpose = 'Lunch' AND starttime::date = '2018-03-28' AND p.phonetypeid = 'C'
+ORDER BY e.name;
+  name  |  number  
+--------+----------
+ Albert | 134-4567
+ Alice  | 126-5678
+ Dave   | 127-7890
+ Jack   | 128-6789
+(4 rows)
+
+db02=# SELECT m.purpose, m.starttime::date as date, m.starttime::time as time, r.building, r.roomnumber
+FROM Meeting m
+        JOIN Room r ON (r.id = m.roomid)
+WHERE r.capacity IS NULL
+ORDER BY m.starttime, m.purpose; 
+   purpose   |    date    |   time   | building | roomnumber 
+-------------+------------+----------+----------+------------
+ DB Issues   | 2018-03-09 | 09:30:00 | B        | 201
+ Post Mortem | 2018-03-15 | 09:30:00 | B        | 201
+ Party       | 2018-03-28 | 14:00:00 | B        | 201
+(3 rows)
+
+db02=# SELECT m.purpose, m.starttime, (m.starttime + m.duration) as endtime
+FROM Meeting m 
+WHERE m.moderatorid IS NULL
+ORDER BY starttime DESC, purpose; 
+   purpose   |      starttime      |       endtime       
+-------------+---------------------+---------------------
+ Lunch       | 2018-04-05 12:00:00 | 2018-04-05 13:00:00
+ IT Planning | 2018-03-28 14:00:00 | 2018-03-28 15:30:00
+ Party       | 2018-03-28 14:00:00 | 2018-03-28 17:00:00
+ Planning    | 2018-03-28 12:30:00 | 2018-03-28 14:00:00
+ Lunch       | 2018-03-28 12:00:00 | 2018-03-28 13:00:00
+ Lunch       | 2018-03-21 12:00:00 | 2018-03-21 13:00:00
+(6 rows)
+
+db02=# SELECT m.purpose, m.starttime, (m.starttime + m.duration) as endtime, m.moderatorid
+FROM Meeting m 
+WHERE m.moderatorid IS NULL
+ORDER BY starttime DESC, purpose; 
+   purpose   |      starttime      |       endtime       | moderatorid 
+-------------+---------------------+---------------------+-------------
+ Lunch       | 2018-04-05 12:00:00 | 2018-04-05 13:00:00 |            
+ IT Planning | 2018-03-28 14:00:00 | 2018-03-28 15:30:00 |            
+ Party       | 2018-03-28 14:00:00 | 2018-03-28 17:00:00 |            
+ Planning    | 2018-03-28 12:30:00 | 2018-03-28 14:00:00 |            
+ Lunch       | 2018-03-28 12:00:00 | 2018-03-28 13:00:00 |            
+ Lunch       | 2018-03-21 12:00:00 | 2018-03-21 13:00:00 |            
+(6 rows)
+
+db02=# SELECT purpose, starttime, (starttime + duration) as endtime
+FROM Meeting m 
+WHERE moderatorid IS NULL
+ORDER BY starttime DESC, purpose; 
+   purpose   |      starttime      |       endtime       
+-------------+---------------------+---------------------
+ Lunch       | 2018-04-05 12:00:00 | 2018-04-05 13:00:00
+ IT Planning | 2018-03-28 14:00:00 | 2018-03-28 15:30:00
+ Party       | 2018-03-28 14:00:00 | 2018-03-28 17:00:00
+ Planning    | 2018-03-28 12:30:00 | 2018-03-28 14:00:00
+ Lunch       | 2018-03-28 12:00:00 | 2018-03-28 13:00:00
+ Lunch       | 2018-03-21 12:00:00 | 2018-03-21 13:00:00
+(6 rows)
+
+db02=# SELECT purpose, starttime, (starttime + duration) as endtime
+FROM Meeting m 
+WHERE moderatorid IS NULL AND purpose EXCEPT 'Lunch'
+ORDER BY starttime DESC, purpose; 
+ERROR:  syntax error at or near "'Lunch'"
+LINE 3: WHERE moderatorid IS NULL AND purpose EXCEPT 'Lunch'
+                                                     ^
+db02=# SELECT purpose, starttime, (starttime + duration) as endtime
+FROM Meeting m 
+WHERE moderatorid IS NULL AND purpose != 'Lunch'
+ORDER BY starttime DESC, purpose; 
+   purpose   |      starttime      |       endtime       
+-------------+---------------------+---------------------
+ IT Planning | 2018-03-28 14:00:00 | 2018-03-28 15:30:00
+ Party       | 2018-03-28 14:00:00 | 2018-03-28 17:00:00
+ Planning    | 2018-03-28 12:30:00 | 2018-03-28 14:00:00
+(3 rows)
+
+db02=# SELECT purpose, starttime, (starttime + duration) as endtime
+FROM Meeting m 
+WHERE moderatorid IS NULL AND purpose != 'Lunch'
+ORDER BY starttime, purpose; 
+   purpose   |      starttime      |       endtime       
+-------------+---------------------+---------------------
+ Planning    | 2018-03-28 12:30:00 | 2018-03-28 14:00:00
+ IT Planning | 2018-03-28 14:00:00 | 2018-03-28 15:30:00
+ Party       | 2018-03-28 14:00:00 | 2018-03-28 17:00:00
+(3 rows)
+
+db02=# SELECT m.purpose, m.starttime, COUNT(e.id) as numattendees
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.id, m.purpose, m.starttime
+ORDER BY starttime DESC, m.id
+db02-# SELECT m.purpose, m.starttime, COUNT(e.id) as numattendees
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.id, m.purpose, m.starttime
+ORDER BY starttime DESC, m.id;
+ERROR:  syntax error at or near "SELECT"
+LINE 7: SELECT m.purpose, m.starttime, COUNT(e.id) as numattendees
+        ^
+db02=# ;
+db02=# SELECT m.purpose, m.starttime, COUNT(e.id) as numattendees
+FROM Meeting m
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+GROUP BY m.id, m.purpose, m.starttime
+ORDER BY starttime DESC, m.id;
+     purpose     |      starttime      | numattendees 
+-----------------+---------------------+--------------
+ Lunch           | 2018-04-05 12:00:00 |            6
+ Test Planning   | 2018-03-28 15:00:00 |            3
+ IT Planning     | 2018-03-28 14:00:00 |            7
+ Party           | 2018-03-28 14:00:00 |           15
+ Planning        | 2018-03-28 12:30:00 |            5
+ Lunch           | 2018-03-28 12:00:00 |            7
+ PlanningLunch   | 2018-03-28 12:00:00 |            7
+ Staff           | 2018-03-25 09:30:00 |            6
+ Lunch           | 2018-03-21 12:00:00 |            6
+ Staff           | 2018-03-18 09:30:00 |            8
+ Staff           | 2018-03-18 09:30:00 |            7
+ Sales           | 2018-03-17 11:00:00 |            3
+ Post Mortem     | 2018-03-15 09:30:00 |            6
+ Post Mortem     | 2018-03-15 09:30:00 |            6
+ Staff           | 2018-03-11 09:30:00 |            6
+ DB Issues       | 2018-03-09 09:30:00 |            4
+ HR Presentation | 2018-03-07 11:30:00 |           14
+ Team Build      | 2018-03-07 09:30:00 |            6
+ Staff           | 2018-03-04 09:30:00 |            6
+ Staff           | 2018-03-04 09:30:00 |            6
+(20 rows)
+
+db02=# SELECT m.id, m.starttime FROM Meeting m WHERE starttime::date 
+db02-#  = '20180-03-28';
+ id | starttime 
+----+-----------
+(0 rows)
+
+db02=# SELECT m.id, m.starttime FROM Meeting m WHERE starttime::date 
+ = '2018-03-28';
+ id  |      starttime      
+-----+---------------------
+ 113 | 2018-03-28 12:00:00
+ 115 | 2018-03-28 12:00:00
+ 117 | 2018-03-28 12:30:00
+ 118 | 2018-03-28 14:00:00
+ 119 | 2018-03-28 15:00:00
+ 120 | 2018-03-28 14:00:00
+(6 rows)
+
+db02=# SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones)
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+ORDER BY r.building;
+db02"# 
+db02"# ;
+db02"# SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones)
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+ORDER BY r.building;
+NOTICE:  identifier "NumCellPhones)
+FROM Room r
+	JOIN Meeting m ON (m.roomid = r.id)
+	JOIN Attendees a ON (a.meetingid = m.id)
+	JOIN Employee e ON (e.id = a.employeeid)
+	JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+ORDER BY r.building;
+
+;
+SELECT r.building as " will be truncated to "NumCellPhones)
+FROM Room r
+	JOIN Meeting m ON (m.roomid = r.id)"
+ERROR:  syntax error at or near "Building"
+LINE 11: SELECT r.building as "Building", COUNT(p.id) as "NumCellPhon...
+                               ^
+db02=# SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones)
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+ORDER BY r.building;
+db02"# ;
+db02"# 
+db02"# 
+db02"# 
+db02"# select * from department;
+db02"# SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones)
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+GROUP BY r.building
+ORDER BY r.building;
+NOTICE:  identifier "NumCellPhones)
+FROM Room r
+	JOIN Meeting m ON (m.roomid = r.id)
+	JOIN Attendees a ON (a.meetingid = m.id)
+	JOIN Employee e ON (e.id = a.employeeid)
+	JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+ORDER BY r.building;
+;
+
+
+
+select * from department;
+SELECT r.building as " will be truncated to "NumCellPhones)
+FROM Room r
+	JOIN Meeting m ON (m.roomid = r.id)"
+ERROR:  syntax error at or near "Building"
+LINE 14: SELECT r.building as "Building", COUNT(p.id) as "NumCellPhon...
+                               ^
+db02=# SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones"
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+GROUP BY r.building
+ORDER BY r.building;
+ERROR:  column p.phonetype does not exist
+LINE 7: WHERE p.phonetype = 'C' AND starttime BETWEEN '2018-03-28 12...
+              ^
+HINT:  Perhaps you meant to reference the column "p.phonetypeid".
+db02=# 
+SELECT r.building as "Building", COUNT(p.id) as "NumCellPhones"
+FROM Room r
+        JOIN Meeting m ON (m.roomid = r.id)
+        JOIN Attendees a ON (a.meetingid = m.id)
+        JOIN Employee e ON (e.id = a.employeeid)
+        JOIN Phone p ON (p.employeeid = e.id)
+WHERE p.phonetypeid = 'C' AND starttime BETWEEN '2018-03-28 12:00:00' AND '2018-03-28 16:00:00'
+GROUP BY r.building
+ORDER BY r.building;
+ Building | NumCellPhones 
+----------+---------------
+ A        |             8
+ B        |            20
+(2 rows)
+
+db02=# \o /Users/inayarizvi/Desktop/temp/test1 
+/Users/inayarizvi/Desktop/temp/test1: Is a directory
+db02=# \o /Users/inayarizvi/Desktop/temp/test1/test
+db02=# \i /Users/inayarizvi/Desktop/temp/test1/Exam01.txt 
+db02=# \o
+db02=# SELECT m.purpose, e.employeenum, m.starttime FROM Meeting m
+db02-# JOIN Attendees a ON (m.id = a.meetingid)
+db02-# JOIN Employee e ON (e.id = a.employeeid)
+db02-# WHERE e.employeenum = ‘A000000001’ AND starttime::date = '2018-03-04'
+db02-# ORDER BY m.starttime;
+ERROR:  column "‘a000000001’" does not exist
+LINE 4: WHERE e.employeenum = ‘A000000001’ AND starttime::date = '20...
+                              ^
+db02=# SELECT m.purpose, e.employeenum, m.starttime FROM Meeting m
+JOIN Attendees a ON (m.id = a.meetingid)
+JOIN Employee e ON (e.id = a.employeeid)
+WHERE e.employeenum = ‘A000000001’ AND starttime::date = '2018-03-04'
+ORDER BY m.starttime;
+ERROR:  column "‘a000000001’" does not exist
+LINE 4: WHERE e.employeenum = ‘A000000001’ AND starttime::date = '20...
+                              ^
+db02=# SELECT m.purpose, e.employeenum, m.starttime FROM Meeting m
+JOIN Attendees a ON (m.id = a.meetingid)
+JOIN Employee e ON (e.id = a.employeeid)
+WHERE e.employeenum = A000000001 AND starttime::date = '2018-03-04'
+ORDER BY m.starttime;
