@@ -1,0 +1,12 @@
+name: StateHearings_Dashboard
+title: StateHearings_Dashboard
+username: inaya-r
+account: inaya-r
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14250864
+bundleId: 9949039
+url: https://inaya-r.shinyapps.io/StateHearings_Dashboard/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

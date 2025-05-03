@@ -1,0 +1,10 @@
+name: statehearings_vis
+title:
+username: inaya-r
+account: inaya-r
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13588426
+bundleId: 9512101
+url: https://inaya-r.shinyapps.io/statehearings_vis/
+version: 1
