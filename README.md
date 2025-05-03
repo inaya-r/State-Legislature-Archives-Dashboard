@@ -75,8 +75,8 @@ The dataset was created by Inaya Rizvi through research on official state legisl
 ## 🧑‍💻 Author
 
 **Inaya Rizvi**  
-[LinkedIn]([#](https://www.linkedin.com/in/inaya-rizvi/))
----
+[LinkedIn](https://www.linkedin.com/in/inaya-rizvi/)
+
 
 ## 📄 License
 
